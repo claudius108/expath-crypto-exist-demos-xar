@@ -5,8 +5,8 @@
 
 	<parent>
 		<artifactId>base</artifactId>
-		<groupId>ro.kuberam.xars.expath-exist-demos</groupId>
-		<version>0.0.2</version>
+		<groupId>ro.kuberam.xars</groupId>
+		<version>0.0.3</version>
 	</parent>
 
 	<artifactId>crypto</artifactId>
@@ -20,13 +20,30 @@
 
 	<properties>
 		<package-title>EXPath Cryptographic Module Demos</package-title>
+		<package-name>http://expath.org/ns/demos/exist/${project.artifactId}</package-name>
+		<package-abbrev>expath-${project.artifactId}-exist-demos</package-abbrev>
+		<package-type>application</package-type>
 	</properties>
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>com.google.code.maven-replacer-plugin</groupId>
-				<artifactId>replacer</artifactId>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>wagon-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>download-README.md</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>download-single</goal>
+						</goals>
+						<configuration>
+							<url>https://raw.githubusercontent.com</url>
+							<fromFile>claudius108/expath-exist/master/crypto/README.md</fromFile>
+							<toFile>${project.build.directory}/index.xml</toFile>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>ro.kuberam.maven.plugins</groupId>
